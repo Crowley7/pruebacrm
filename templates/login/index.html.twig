@@ -16,9 +16,9 @@
 
     {# Agrega el campo oculto para redireccionamiento según el rol #}
     {% if is_granted('ROLE_DELEGATE') %}
-        <input type="hidden" name="_target_path" value="{{ path('app_curso') }}"> 
+        <input type="hidden" name="_target_path" value="/perfil"> 
     {% elseif is_granted('ROLE_USER') %}
-        <input type="hidden" name="_target_path" value="{{ path('app_perfil') }}"> 
+        <input type="hidden" name="_target_path" value="/perfil"> 
     {% endif %}
 
     <button type="submit">login</button>
