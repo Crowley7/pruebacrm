@@ -1,21 +1,30 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello PerfilController!{% endblock %}
+{% block title %}Perfil{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+<h1> Perfil de alumno</h1>
+<h2>Datos del alumno:</h2>
+<p>DNI: {{ alumno.dni }}</p>
+<p>Nombre completo: {{ alumno.nombre }}  {{ alumno.apellidoPaterno }}  {{ alumno.apellidoMaterno }}</p>
+{% if alumno.roles|length == 1 and 'ROLE_USER' in alumno.roles %}
+    <p>Rol: Alumno general</p>
+{% endif %}
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'D:/Elias/proyectos/pruebacrm/src/Controller/PerfilController.php'|file_link(0) }}">src/Controller/PerfilController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'D:/Elias/proyectos/pruebacrm/templates/perfil/index.html.twig'|file_link(0) }}">templates/perfil/index.html.twig</a></code></li>
-    </ul>
-</div>
+{% if 'ROLE_DELEGATE' in alumno.roles %}
+    <p>Rol: Delegado de carrera</p>
+{% endif %}
+<br>
+<h2>Cursos Matriculados:</h2>
+    {% if alumno.matricula is not empty %}
+        <ul>
+            {% for matricula in alumno.matricula %}
+                <li>{{ matricula.idCurso.nombre }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No tiene cursos matriculados.</p>
+    {% endif %}
 
 {% endblock %}

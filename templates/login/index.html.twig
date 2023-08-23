@@ -13,14 +13,11 @@
 
     <label for="password">Password:</label>
     <input type="password" id="password" name="_password">
-
+    
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
     {# Agrega el campo oculto para redireccionamiento según el rol #}
-    {% if is_granted('ROLE_DELEGATE') %}
-        <input type="hidden" name="_target_path" value="/perfil"> 
-    {% elseif is_granted('ROLE_USER') %}
-        <input type="hidden" name="_target_path" value="/perfil"> 
-    {% endif %}
-
+    <input type="hidden" name="_target_path" value="{{ path('app_perfil') }}">
+    
     <button type="submit">login</button>
 </form>
 <br>
