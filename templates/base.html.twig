@@ -13,6 +13,8 @@
     </head>
     <body>
         {% block body %}{% endblock %}
+         {% if is_granted('ROLE_USER') %}
+        <a href="{{ path('app_logout') }}">Cerrar Sesión</a>
+        {% endif %}
     </body>
-<a href="{{ path('app_logout') }}">Cerrar Sesión</a>
 </html>

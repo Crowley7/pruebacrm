@@ -2,26 +2,19 @@
 
 namespace App\Controller;
 
-
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Entity\Alumno;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class PerfilController extends VerificadorController
+class EditaralumnoController extends VerificadorController
 {
-    #[Route('/perfil', name: 'app_perfil')]
+    #[Route('/editaralumno', name: 'app_editaralumno')]
     public function index(UserInterface $user): Response
     {
         $this->verificarAcceso();
-       
-        
-       
-        $alumno = $this->getUser();
-
-        return $this->render('perfil/index.html.twig', [
-            'alumno' => $alumno,
-           
+        return $this->render('editaralumno/index.html.twig', [
+            'controller_name' => 'EditaralumnoController',
         ]);
     }
 }
