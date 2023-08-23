@@ -17,7 +17,7 @@ class Alumno implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type:'string', length: 180, unique: true, nullable:false)]
+    #[ORM\Column(length: 8, unique: true)]
     private ?string $dni=null;
 
     #[ORM\Column]
