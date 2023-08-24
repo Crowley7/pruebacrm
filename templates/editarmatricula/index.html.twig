@@ -1,20 +1,71 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello EditarmatriculaController!{% endblock %}
+{% block title %}Editarmatricula{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<h1>MATRICULA</h1>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+<h3>Cursos seleccionados</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Creditos</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for matricula in alumno.matricula %}
+                <tr>
+                    <td>{{ matricula.idCurso.nombre }}</td>
+                    <td>{{ matricula.idCurso.creditos }}</td>
+                    <td>
+                        <a href="{{ path('app_eliminarmatricula', {'id': matricula.id}) }}">Eliminar</a>
+                    </td>
+                </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">Sin registros</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'D:/Elias/proyectos/pruebacrm/src/Controller/EditarmatriculaController.php'|file_link(0) }}">src/Controller/EditarmatriculaController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'D:/Elias/proyectos/pruebacrm/templates/editarmatricula/index.html.twig'|file_link(0) }}">templates/editarmatricula/index.html.twig</a></code></li>
-    </ul>
-</div>
+<h3>Cursos disponibles</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Creditos</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for curso in cursos %}
+                {% set estaMatriculado = false %}
+                {% for matricula in alumno.matricula %}
+                    {% if matricula.idCurso.nombre == curso.nombre %}
+                        {% set estaMatriculado = true %}
+                    {% endif %}
+                {% endfor %}
+                
+                {% if not estaMatriculado %}
+                    <tr>
+                        <td>{{ curso.nombre }}</td>
+                        <td>{{ curso.creditos }}</td>
+                        <td>
+                            <a href="{{ path('app_nuevamatricula', {'id': curso.id}) }}">Añadir</a>
+                        </td>
+                    </tr>
+                {% endif %}
+            {% else %}
+                <tr>
+                    <td colspan="3">Sin registros</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+    <a href="{{ path('app_perfil') }}">Volver a mi perfil</a>
 {% endblock %}

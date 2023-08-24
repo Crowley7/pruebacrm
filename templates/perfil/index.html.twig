@@ -28,7 +28,7 @@
         {% else %}
             <p>No tiene cursos matriculados.</p>
         {% endif %}
-        <a href="{{ path('app_editarmatricula') }}">Editar matricula</a>
+        <a href="{{ path('app_matricula_index') }}">Editar matricula</a>
     <br><br>
     {% if 'ROLE_DELEGATE' in alumno.roles %}
         <a href="{{ path('app_curso_index') }}">Administrar cursos</a>
