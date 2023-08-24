@@ -32,6 +32,21 @@
     </table>
 
 <h3>Cursos disponibles</h3>
+{% set cursosDisponibles = [] %} {# Variable para contar los cursos disponibles #}
+{% for curso in cursos %}
+    {% set matriculado = false %}
+    {% for matricula in alumno.matricula %}
+        {% if matricula.idCurso.nombre == curso.nombre %}
+            {% set matriculado = true %}
+        {% endif %}
+    {% endfor %}
+    
+    {% if not matriculado %}
+        {% set cursosDisponibles = cursosDisponibles|merge([curso]) %} {# Agregar el curso a la lista de cursos disponibles #}
+    {% endif %}
+{% endfor %}
+
+{% if cursosDisponibles|length > 0 %} {# Verificar si hay cursos disponibles #}
     <table class="table">
         <thead>
             <tr>
@@ -41,31 +56,20 @@
             </tr>
         </thead>
         <tbody>
-            {% for curso in cursos %}
-                {% set estaMatriculado = false %}
-                {% for matricula in alumno.matricula %}
-                    {% if matricula.idCurso.nombre == curso.nombre %}
-                        {% set estaMatriculado = true %}
-                    {% endif %}
-                {% endfor %}
-                
-                {% if not estaMatriculado %}
-                    <tr>
-                        <td>{{ curso.nombre }}</td>
-                        <td>{{ curso.creditos }}</td>
-                        <td>
-                            <a href="{{ path('app_nuevamatricula', {'id': curso.id}) }}">Añadir</a>
-                        </td>
-                    </tr>
-                {% endif %}
-            {% else %}
+            {% for curso in cursosDisponibles %}
                 <tr>
-                    <td colspan="3">Sin registros</td>
+                    <td>{{ curso.nombre }}</td>
+                    <td>{{ curso.creditos }}</td>
+                    <td>
+                        <a href="{{ path('app_nuevamatricula', {'id': curso.id}) }}">Añadir</a>
+                    </td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
-
+{% else %}
+    <p>Sin registros</p> {# Mostrar mensaje si no hay cursos disponibles #}
+{% endif %}
 
     <a href="{{ path('app_perfil') }}">Volver a mi perfil</a>
 {% endblock %}
