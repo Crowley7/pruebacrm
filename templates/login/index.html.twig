@@ -14,7 +14,7 @@
     <label for="password">Password:</label>
     <input type="password" id="password" name="_password">
 
-    {# Agrega el campo oculto para redireccionamiento según el rol #}
+    {# Agrega el campo oculto para redireccionamiento según rol #}
     {% if is_granted('ROLE_DELEGATE') %}
         <input type="hidden" name="_target_path" value="{{ path('app_curso') }}"> 
     {% elseif is_granted('ROLE_USER') %}
