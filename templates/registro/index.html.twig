@@ -2,12 +2,91 @@
 
 {% block title %}RegistroAlumno{% endblock %}
 
-{% block body %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Agrega tus estilos personalizados aquí */
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
 
-<div class="example-wrapper">
-    <h1>Registro</h1>
+        .registration-form {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 100%;
+            max-width: 800px;
+            margin: 20px;
+        }
+
+        .registration-form label{
+            width: 100%;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 5px;
+        }
+        
+        .registration-form input{
+            width: 100%;
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .registration-form select {
+            width: 100%;
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .registration-form button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .registration-form .action-links {
+            text-align: center;
+            margin-top: 15px;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+<div class="registration-form">
+    <div class="example-wrapper">
+        <h1 style="text-align: center;">Registro</h1>
+    </div>
+    {{ form_start(form) }}
+    {{ form_row(form.dni) }}
+    {{ form_row(form.password) }}
+    {{ form_row(form.nombre) }}
+    {{ form_row(form.apellidoPaterno) }}
+    {{ form_row(form.apellidoMaterno) }}
+    <div>
+        {{ form_row(form.Seleccioncursos) }}
+    </div>
+    {{ form_row(form.Seleccionrol) }}
+    {{ form_row(form.Registrarse) }}
+    {{ form_end(form) }}
+
+    <div class="action-links">
+        <a href="{{ path('app_login') }}">Iniciar sesión</a>
+    </div>
 </div>
-{{ form(form)}}
-<br>
-<a href="{{ path('app_login') }}">Iniciar sesión</a>
 {% endblock %}

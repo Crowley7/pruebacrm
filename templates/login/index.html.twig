@@ -2,25 +2,98 @@
 
 {% block title %}Login{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Agrega tus estilos personalizados aquí */
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .login-form {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .login-form label{
+            width: 100%;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .login-form input {
+            width: 100%;
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .login-form button {
+            background-color: #007bff; /* Fondo azul */
+            color: white; /* Letra blanca */
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .login-form button:hover {
+            background-color: #0056b3;
+        }
+
+        .login-form a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .action-links {
+            display: flex;
+            flex-direction: column; /* Cambia la dirección del diseño a columna */
+            align-items: center;
+        }
+    </style>
+{% endblock %}
+
 {% block body %}
-{% if error %}
-    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-{% endif %}
+<div class="login-form">
+    <h2 style="text-align: center;">Iniciar Sesión</h2>
+    {% if error %}
+        <div style="color: red; text-align: center;">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
 
-<form action="{{ path('app_login') }}" method="post">
-    <label for="username">DNI:</label>
-    <input type="text" id="username" name="_username" value="{{ last_username }}">
+    <form action="{{ path('app_login') }}" method="post">
 
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="_password">
-    
-    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-    {# Agrega el campo oculto para redireccionamiento según el rol #}
-    <input type="hidden" name="_target_path" value="{{ path('app_perfil') }}">
-    
-    <button type="submit">login</button>
-</form>
-<br>
-<a href="{{ path('app_registro') }}">Regístrate</a>
+        <label for="username">DNI</label>
+        <input type="text" id="username" name="_username" value="{{ last_username }}">
 
+        <label for="password">Password</label>
+        <input type="password" id="password" name="_password">
+        
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+        {# Agrega el campo oculto para redireccionamiento según el rol #}
+        <input type="hidden" name="_target_path" value="{{ path('app_perfil') }}">
+        
+        <div class="action-links">
+            <button type="submit">Iniciar Sesión</button>
+            <br>
+            <a href="{{ path('app_registro') }}">Regístrate</a>
+        </div>
+    </form>
+</div>
 {% endblock %}

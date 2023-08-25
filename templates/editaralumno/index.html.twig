@@ -1,9 +1,84 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Editaralumno{% endblock %}
+{% block title %}Editar Alumno{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Agrega tus estilos personalizados aquí */
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .edit-container {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 100%;
+            max-width: 600px;
+            margin: 20px;
+        }
+
+        .edit-title {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .edit-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .edit-form label {
+            margin-bottom: 5px;
+        }
+
+        .edit-form input {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .edit-form button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .edit-form button:hover {
+            background-color: #0056b3;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+{% endblock %}
 
 {% block body %}
-
-<h1>Editar alumno</h1>
-{{ form(form) }}
+<div class="edit-container">
+    <div class="edit-title">
+        <h1>Editar Alumno</h1>
+    </div>
+    
+    <div class="edit-form">
+        {{ form(form) }}
+    </div>
+    <a class="back-link" href="{{ path('app_perfil') }}">Volver a mi perfil</a>
+</div>
 {% endblock %}
