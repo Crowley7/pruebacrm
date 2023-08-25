@@ -2,15 +2,12 @@
 
 namespace App\Controller;
 
-use App\Entity\Alumno;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\User\UserInterface;
 use App\Form\EditaralumnoType;
 use App\Repository\AlumnoRepository;
-use Symfony\Component\Security\Http\Attribute\CurrentUser;
 
 class EditaralumnoController extends VerificadorController
 {

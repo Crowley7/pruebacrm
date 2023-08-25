@@ -2,13 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\Curso;
-use App\Entity\Alumno;
 use App\Entity\Matricula;
 use App\Repository\AlumnoRepository;
 use App\Repository\CursoRepository;
 use App\Repository\MatriculaRepository;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
