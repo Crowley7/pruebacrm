@@ -58,6 +58,12 @@
             text-align: center;
             margin-top: 20px;
         }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+        }
     </style>
 {% endblock %}
 
@@ -101,6 +107,7 @@
         <a href="{{ path('app_logout') }}" class="btn btn-danger">Cerrar sesión</a>
     </div>
 
+    <a class="back-link" href="{{ path('app_perfil') }}">Volver a mi perfil</a>
 
 </div>
 {% endblock %}
