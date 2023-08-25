@@ -1,11 +1,57 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Curso{% endblock %}
+{% block title %}Nuevo Curso{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Agrega tus estilos personalizados aquí */
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        .new-curso-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .new-curso-title {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        .back-link a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+{% endblock %}
 
 {% block body %}
-    <h1>Create new Curso</h1>
+<div class="new-curso-container">
+    <h1 class="new-curso-title">Crear Nuevo Curso</h1>
 
     {{ include('curso/_form.html.twig') }}
 
-    <a href="{{ path('app_curso_index') }}">back to list</a>
+    <div class="back-link">
+        <a href="{{ path('app_curso_index') }}">Volver</a>
+    </div>
+</div>
 {% endblock %}

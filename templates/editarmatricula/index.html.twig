@@ -1,0 +1,139 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editarmatricula{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Agrega tus estilos personalizados aquí */
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        .matricula-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .matricula-title {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .matricula-table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #ccc;
+        }
+
+        .matricula-table th,
+        .matricula-table td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ccc;
+        }
+
+        .matricula-table th {
+            background-color: #f2f2f2;
+        }
+
+        .matricula-actions {
+            text-align: center;
+        }
+
+        .matricula-actions a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .matricula-actions a:hover {
+            text-decoration: underline;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+<div class="matricula-container">
+    <h1 class="matricula-title">MATRICULA</h1>
+
+    <h3>Cursos seleccionados</h3>
+    <table class="matricula-table">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Creditos</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for matricula in alumno.matricula %}
+                <tr>
+                    <td>{{ matricula.idCurso.nombre }}</td>
+                    <td>{{ matricula.idCurso.creditos }}</td>
+                    <td class="matricula-actions">
+                        <a href="{{ path('app_eliminarmatricula', {'id': matricula.id}) }}">Eliminar</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">Sin registros</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <br>
+    <h3>Cursos disponibles</h3>
+    {% set cursosDisponibles = [] %} {# Definir la variable cursosDisponibles #}
+    {% for curso in cursos %}
+        {% set matriculado = false %}
+        {% for matricula in alumno.matricula %}
+            {% if matricula.idCurso.nombre == curso.nombre %}
+                {% set matriculado = true %}
+            {% endif %}
+        {% endfor %}
+
+        {% if not matriculado %}
+            {% set cursosDisponibles = cursosDisponibles|merge([curso]) %}
+        {% endif %}
+    {% endfor %}
+
+    {% if cursosDisponibles|length > 0 %}
+        <table class="matricula-table">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Creditos</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for curso in cursosDisponibles %}
+                    <tr>
+                        <td>{{ curso.nombre }}</td>
+                        <td>{{ curso.creditos }}</td>
+                        <td class="matricula-actions">
+                            <a href="{{ path('app_nuevamatricula', {'id': curso.id}) }}">Añadir</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Sin registros</p>
+    {% endif %}
+
+    <a class="back-link" href="{{ path('app_perfil') }}">Volver a mi perfil</a>
+</div>
+{% endblock %}

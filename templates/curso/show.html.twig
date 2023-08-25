@@ -2,10 +2,70 @@
 
 {% block title %}Curso{% endblock %}
 
-{% block body %}
-    <h1>Curso</h1>
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Agrega tus estilos personalizados aquí */
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
 
-    <table class="table">
+        .curso-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .curso-title {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .curso-table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #ccc;
+        }
+
+        .curso-table th,
+        .curso-table td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ccc;
+        }
+
+        .curso-table th {
+            background-color: #f2f2f2;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        .back-link a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+<div class="curso-container">
+    <h1 class="curso-title">Curso</h1>
+
+    <table class="curso-table">
         <tbody>
             <tr>
                 <th>Id</th>
@@ -22,9 +82,9 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_curso_index') }}">back to list</a>
-
-    <a href="{{ path('app_curso_edit', {'id': curso.id}) }}">edit</a>
-
-    {{ include('curso/_delete_form.html.twig') }}
+    <div class="back-link">
+        <a href="{{ path('app_curso_index') }}">Volver</a>
+        {{ include('curso/_delete_form.html.twig') }}
+    </div>
+</div>
 {% endblock %}

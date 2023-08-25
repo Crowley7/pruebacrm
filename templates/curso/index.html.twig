@@ -1,17 +1,77 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Curso index{% endblock %}
+{% block title %}Curso{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Agrega tus estilos personalizados aquí */
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        .curso-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .curso-title {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .curso-table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #ccc;
+        }
+
+        .curso-table th,
+        .curso-table td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ccc;
+        }
+
+        .curso-table th {
+            background-color: #f2f2f2;
+        }
+
+        .curso-actions {
+            text-align: center;
+        }
+
+        .curso-actions a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .curso-actions a:hover {
+            text-decoration: underline;
+        }
+
+        .action-links {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+{% endblock %}
 
 {% block body %}
-    <h1>Curso index</h1>
+<div class="curso-container">
+    <h1 class="curso-title">Cursos</h1>
 
-    <table class="table">
+    <table class="curso-table">
         <thead>
             <tr>
                 <th>Id</th>
                 <th>Nombre</th>
                 <th>Creditos</th>
-                <th>actions</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -20,19 +80,27 @@
                 <td>{{ curso.id }}</td>
                 <td>{{ curso.nombre }}</td>
                 <td>{{ curso.creditos }}</td>
-                <td>
-                    <a href="{{ path('app_curso_show', {'id': curso.id}) }}">show</a>
-                    <a href="{{ path('app_curso_edit', {'id': curso.id}) }}">edit</a>
+                <td class="curso-actions">
+                    <a href="{{ path('app_curso_show', {'id': curso.id}) }}">Ver</a>
+                    <a href="{{ path('app_curso_edit', {'id': curso.id}) }}">Editar</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">no records found</td>
+                <td colspan="4">No hay cursos</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_curso_new') }}">Create new</a>
+    <div class="action-links">
+        <a href="{{ path('app_curso_new') }}" class="btn btn-primary">Nuevo Curso</a> 
+    </div>
 
+    <div class="action-links">
+        <a href="{{ path('app_logout') }}" class="btn btn-danger">Cerrar sesión</a>
+    </div>
+
+
+</div>
 {% endblock %}

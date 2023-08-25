@@ -13,5 +13,8 @@
     </head>
     <body>
         {% block body %}{% endblock %}
+        {% if is_granted('ROLE_USER') %}
+        
+        {% endif %}
     </body>
 </html>
