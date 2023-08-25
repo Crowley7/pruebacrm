@@ -12,11 +12,13 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/curso')]
-class CursoController extends AbstractController
+class CursoController extends VerificadorController
 {
+    
     #[Route('/', name: 'app_curso_index', methods: ['GET'])]
     public function index(CursoRepository $cursoRepository): Response
     {
+        $this->verificarAcceso();
         return $this->render('curso/index.html.twig', [
             'cursos' => $cursoRepository->findAll(),
         ]);
@@ -25,6 +27,7 @@ class CursoController extends AbstractController
     #[Route('/new', name: 'app_curso_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $this->verificarAcceso();
         $curso = new Curso();
         $form = $this->createForm(CursoType::class, $curso);
         $form->handleRequest($request);
@@ -45,6 +48,7 @@ class CursoController extends AbstractController
     #[Route('/{id}', name: 'app_curso_show', methods: ['GET'])]
     public function show(Curso $curso): Response
     {
+        $this->verificarAcceso();
         return $this->render('curso/show.html.twig', [
             'curso' => $curso,
         ]);
@@ -53,6 +57,7 @@ class CursoController extends AbstractController
     #[Route('/{id}/edit', name: 'app_curso_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Curso $curso, EntityManagerInterface $entityManager): Response
     {
+        $this->verificarAcceso();
         $form = $this->createForm(CursoType::class, $curso);
         $form->handleRequest($request);
 
@@ -71,6 +76,7 @@ class CursoController extends AbstractController
     #[Route('/{id}', name: 'app_curso_delete', methods: ['POST'])]
     public function delete(Request $request, Curso $curso, EntityManagerInterface $entityManager): Response
     {
+        $this->verificarAcceso();
         if ($this->isCsrfTokenValid('delete'.$curso->getId(), $request->request->get('_token'))) {
             $entityManager->remove($curso);
             $entityManager->flush();
